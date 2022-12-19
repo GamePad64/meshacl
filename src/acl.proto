@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package acl;
+
+enum AclRecordType {
+  Grant = 0;
+  Deny = 1;
+}
+
+message AclPermission {
+  AclRecordType type = 1;
+  string cap = 2;
+  repeated uint32 key_id = 3;
+}
+
+message AclRecord {
+  bytes last = 1;
+  repeated bytes keys = 2;
+  repeated AclPermission permissions = 3;
+}
+
+message SignedRecord {
+  bytes record = 1;
+  uint32 signer = 2;
+  bytes signature = 3;
+}
